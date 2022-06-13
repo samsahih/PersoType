@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersoType", "PersoType\PersoType.csproj", "{3CCB1A1D-9D05-4E8B-AA52-C67F46D1A3A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersoTypeAPIs", "PersoTypeAPIs\PersoTypeAPIs.csproj", "{CD75E9BF-9A19-4726-96B2-E93A19CA9B19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3CCB1A1D-9D05-4E8B-AA52-C67F46D1A3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CCB1A1D-9D05-4E8B-AA52-C67F46D1A3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CCB1A1D-9D05-4E8B-AA52-C67F46D1A3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD75E9BF-9A19-4726-96B2-E93A19CA9B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD75E9BF-9A19-4726-96B2-E93A19CA9B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD75E9BF-9A19-4726-96B2-E93A19CA9B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD75E9BF-9A19-4726-96B2-E93A19CA9B19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
