@@ -18,7 +18,7 @@ namespace PersoTypeAPIs.Repositories
                //.OrderBy(ow => ow.Title)
                .ToListAsync();
         }
-        public async Task<Answer> GetAnswerByIdAsync(Guid AnswerId)
+        public async Task<Answer> GetAnswerByIdAsync(int AnswerId)
         {
             return await FindByCondition(Answer => Answer.Id.Equals(AnswerId))
                 .FirstOrDefaultAsync();

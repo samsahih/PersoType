@@ -24,12 +24,12 @@ namespace PersoTypeAPIs.Repositories
                 .Include(an => an.Answers)
                 .ToListAsync();
         }
-        public async Task<Question> GetQuestionByIdAsync(Guid QuestionId)
+        public async Task<Question> GetQuestionByIdAsync(int QuestionId)
         {
             return await FindByCondition(Question => Question.Id.Equals(QuestionId))
                 .FirstOrDefaultAsync();
         }
-        public async Task<Question> GetQuestionWithAnswersAsync(Guid QuestionId)
+        public async Task<Question> GetQuestionWithAnswersAsync(int QuestionId)
         {
             return await FindByCondition(Question => Question.Id.Equals(QuestionId))
                 .Include(an => an.Answers)

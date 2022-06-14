@@ -7,7 +7,7 @@ namespace PersoTypeAPIs.Repositories
         void CreateAnswer(Answer Answer);
         void DeleteAnswer(Answer Answer);
         Task<IEnumerable<Answer>> GetAllAnswersAsync();
-        Task<Answer> GetAnswerByIdAsync(Guid AnswerId);
+        Task<Answer> GetAnswerByIdAsync(int AnswerId);
         void UpdateAnswer(Answer Answer);
     }
 }

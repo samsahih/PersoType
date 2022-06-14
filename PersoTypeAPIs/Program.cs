@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PersoTypeAPIs.Models;
 using PersoTypeAPIs.Repositories;
+using PersoTypeAPIs.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 // DIs
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<ICrudOperations, CrudOperations>();
 
 var app = builder.Build();
 

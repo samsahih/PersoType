@@ -8,8 +8,8 @@ namespace PersoTypeAPIs.Repositories
         void DeleteQuestion(Question Question);
         Task<IEnumerable<Question>> GetAllQuestionsAsync();
         Task<IEnumerable<Question>> GetAllQuestionWithAnswersAsync();
-        Task<Question> GetQuestionByIdAsync(Guid QuestionId);
-        Task<Question> GetQuestionWithAnswersAsync(Guid QuestionId);
+        Task<Question> GetQuestionByIdAsync(int QuestionId);
+        Task<Question> GetQuestionWithAnswersAsync(int QuestionId);
         void UpdateQuestion(Question Question);
     }
 }
