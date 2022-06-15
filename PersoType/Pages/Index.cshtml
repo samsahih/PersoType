@@ -5,6 +5,41 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form id="TestForm" onsubmit="return false">
+        <div class="c-test__questions c-test__questions--slider">
+
+        </div>
+    </form>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function(){
+            if(window.location.hash == "" || window.location.hash.indexOf("answers=") == -1)
+                $("#landingScreen").show();
+
+            $("#landingScreen").click(function(){
+                $(this).fadeOut(700);
+            });
+        });
+
+        var routeURL = location.protocol + '//' + location.host;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: routeURL + "/PersoTypeAppData/GetAllQuestions/",
+            data: "",
+            complete: function(data) {
+                console.log(data);
+                
+                for(var i =0; i<data.responseJSON.length;i++)
+                {
+                    console.log(data.responseJSON[i]);
+                    $(".c-test__questions--slider").append(QuestionBuilder(data.responseJSON[i], i, data.responseJSON.length));
+                }
+                initQuestionsActions();
+            }
+        });
+    </script>
+}
