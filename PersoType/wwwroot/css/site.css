@@ -26,10 +26,68 @@ body {
     transform: translate(-50%, -50%);
 }
 
+
+
+.dot-overtaking {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: transparent;
+    color: black;
+    margin: -1px 0;
+    box-shadow: 0 -20px 0 0;
+    filter: blur(2px);
+    animation: dotOvertaking 2s infinite cubic-bezier(0.2, 0.6, 0.8, 0.2);
+}
+
+.dot-overtaking::before, .dot-overtaking::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background-color: transparent;
+    color: black;
+    box-shadow: 0 -20px 0 0;
+    filter: blur(2px);
+}
+
+.dot-overtaking::before {
+    animation: dotOvertaking 2s infinite cubic-bezier(0.2, 0.6, 0.8, 0.2);
+    animation-delay: .3s;
+}
+
+.dot-overtaking::after {
+    animation: dotOvertaking 1.5s infinite cubic-bezier(0.2, 0.6, 0.8, 0.2);
+    animation-delay: .6s;
+}
+
+@keyframes dotOvertaking {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+
+
+
 #TestForm {
     position: relative;
     height: 433px;
-    overflow:hidden;
+    overflow: hidden;
+}
+
+#resultString
+{
+    display:none;
 }
 
 input, select, textarea {
@@ -182,11 +240,6 @@ ol[class], ul[class] {
     color: #26313e;
 }
 
-.c-button--large {
-    font-size: var(--theme-font-size-small);
-    padding: 1.125rem 0.5rem 1rem;
-}
-
 .c-button + .c-button {
     margin-left: 1rem;
 }
@@ -197,17 +250,17 @@ ol[class], ul[class] {
 }
 
 
-#landingScreen {
-    background-color:#ec6584;
-    position:fixed;
-    left:0px;
-    top:0px;
-    height:100%;
-    width:100%;
-    color:white;
-    display:none;
+#landingScreen, #finishScreen {
+    background-color: #ec6584;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    color: white;
+    display: none;
 }
-.desktopDiv, .PhoneTabletDiv {
+.desktopDiv, .PhoneTabletDiv, #finishScreen div {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -216,6 +269,7 @@ ol[class], ul[class] {
     font-size: 40px;
     font-weight: bold;
     display: block;
+    text-align: center;
 }
 .PhoneTabletDiv {
     display: none;

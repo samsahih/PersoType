@@ -18,6 +18,23 @@
         $(document).ready(function(){
             if(window.location.hash == "" || window.location.hash.indexOf("answers=") == -1)
                 $("#landingScreen").show();
+            else
+            {
+                waitUntil(function () {
+                    return ($(".c-test__question").length > 0);
+                }, function () {
+                    var hashValue = window.location.hash;
+                    var ToArray = hashValue.replace("#answers=[", "").replace("]", "").split(",");
+                
+                    for(var i = 0; i < ToArray.length; i++)
+                    {
+                        console.log(ToArray[i]);
+                        $($(".c-test__question")[i]).find("li:eq(" + ToArray[i] + ")").find("label").click();
+                    }
+                }, function () {
+                    console.log("Data Not Loaded. Health checks needed.");
+                });
+            }
 
             $("#landingScreen").click(function(){
                 $(this).fadeOut(700);
@@ -41,5 +58,20 @@
                 initQuestionsActions();
             }
         });
+
+        function callResultsAPI()
+        {
+            var dataPassed = pushAnswerResults();
+            var array = pushAnswerResults(true);//.replace("answers=", "").replace("[", "").replace("]", "").split(",");
+            console.log(array);
+
+            $.post(routeURL + "/PersoTypeAppData/GetPersonalityType/", $.param({ answers: array }, true), function(data) {
+                //console.log(data);
+                
+                $("#resultString").html(data);
+                $("#finishScreen").find("div").hide();
+                $("#resultString").show();
+            });
+        }
     </script>
 }

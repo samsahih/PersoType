@@ -25,11 +25,20 @@ namespace PersoType.Controllers
         [HttpPost("GetAllQuestions")]
         public async Task<IEnumerable<Question>> GetAllQuestions()
         {
-            //var dataBaseUrl = _appSettings.ConfigSettings.ProductionsAPIsURL;
-
             IGetAllQuestionsWithAnswersAPI dataService = RestService.For<IGetAllQuestionsWithAnswersAPI>(dataBaseUrl);
 
             var dataResponse = await dataService.GetAllQuestionsWithAnswers();
+
+            return dataResponse;
+        }
+
+        // This gets data for the Value Streams
+        [HttpPost("GetPersonalityType")]
+        public async Task<string> GetPersonalityType([FromForm] List<int> answers)
+        {
+            ICalculatePersonalityAPI dataService = RestService.For<ICalculatePersonalityAPI>(dataBaseUrl);
+
+            var dataResponse = await dataService.calculatePersonality(answers.ToArray());
 
             return dataResponse;
         }

@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
 // DIs
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<ICrudOperations, CrudOperations>();
+builder.Services.AddScoped<IPersonalityCalculations, PersonalityCalculations>();
 
 var app = builder.Build();
 

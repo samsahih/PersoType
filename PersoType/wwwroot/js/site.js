@@ -29,19 +29,17 @@
                     </li>`;
              }
             ret += `</ul>`;
-            ret += (questID == 0) ? `<div class="c-test__buttons">
-                <button type="submit" class="c-button c-button--large c-button--secondary c-button--text-and-icon c-test__button-next" disabled="">
+            ret += (questID == 0) ? `<div class="c-button--tertiary">
+                <button type="submit" class="c-button c-button--secondary c-test__button-next" disabled="">
                     <span>Next question	></span>
-                    <svg width="8" height="12"><use href="#svg-chevron-button-right" xlink:href="#svg-chevron-button-right"></use></svg>
                 </button>
             </div>` : `<div class="c-test__buttons">
-					<button type="submit" class="c-button c-button--large c-button--secondary c-button--text-and-icon c-test__button-prev">
+					<button type="submit" class="c-button c-button--tertiary c-test__button-prev">
 						<span>< Previous</span>
 					</button>
 
-					<button type="submit" class="c-button c-button--large c-button--tertiary c-button--text-and-icon c-test__button-next" disabled="">
+					<button type="submit" class="c-button c-test__button-next" disabled="">
 						<span>` + ((questID == totalQuestions - 1) ? `Finish` : `Next question >`) + `</span>
-						<svg width="8" height="12"><use xlink:href="#svg-chevron-button-right"></use></svg>
 					</button>
 				</div>`;
         ret+=`</div>`;
@@ -71,6 +69,10 @@ function initQuestionsActions() {
             $('.current').fadeOut();
             $('.current').removeClass("current");
             nextElement.addClass("current");
+        } else {
+            callResultsAPI();
+            $("#finishScreen").show();
+            removeHash();
         }
     });
 
@@ -89,7 +91,7 @@ function initQuestionsActions() {
     });
 }
 
-function pushAnswerResults() {
+function pushAnswerResults(toArray) {
     var input = $("input[type='radio'][name*='answer[']:checked");
     var answer = new Array(input.length);
 
@@ -102,5 +104,61 @@ function pushAnswerResults() {
     var res = "answers=[" + answer + "]";
     console.log(res);
 
-    return res;
+    if (typeof (toArray) != "undefined" && toArray != null && toArray === true)
+        return res.replace("answers=", "").replace("[", "").replace("]", "").split(",")
+    else
+        return res;
+}
+
+
+
+// Removes hash values from url even on unsupported older browsers
+function removeHash() {
+    var scrollV, scrollH, loc = window.location;
+    if ("pushState" in history)
+        history.pushState("", document.title, loc.pathname + loc.search);
+    else {
+        // Prevent scrolling by storing the page's current scroll offset
+        scrollV = document.body.scrollTop;
+        scrollH = document.body.scrollLeft;
+
+        loc.hash = "";
+
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scrollV;
+        document.body.scrollLeft = scrollH;
+    }
+}
+
+/**
+     * @brief Wait for something to be ready before triggering a timeout
+     * @param {callback} isready Function which returns true when the thing we're waiting for has happened
+     * @param {callback} success Function to call when the thing is ready
+     * @param {callback} error Function to call if we time out before the event becomes ready
+     * @param {int} count Number of times to retry the timeout (default 300 or 6s)
+     * @param {int} interval Number of milliseconds to wait between attempts (default 20ms)
+     */
+function waitUntil(isready, success, error, count, interval) {
+    if (count === undefined) {
+        count = 1000;
+    }
+    if (interval === undefined) {
+        interval = 20;
+    }
+    if (isready()) {
+        success();
+        return;
+    }
+    // The call back isn't ready. We need to wait for it
+    setTimeout(function () {
+        if (!count) {
+            // We have run out of retries
+            if (error !== undefined) {
+                error();
+            }
+        } else {
+            // Try again
+            waitUntil(isready, success, error, count - 1, interval);
+        }
+    }, interval);
 }
